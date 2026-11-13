@@ -39,6 +39,14 @@ python app.py
 > 也可用 Flask 命令启动：`flask --app app run --port 5000`。
 > 手动初始化数据库（可选）：`flask --app app init-db`。
 
+## 在线访问地址
+
+本项目已部署到阿里云轻量应用服务器，公网直接访问：
+
+**<http://8.163.15.55/>**
+
+服务由 systemd 托管（`studytask.service`），开机自启、异常自动重启；查看状态 `systemctl status studytask`，查看日志 `journalctl -u studytask -n 50`。
+
 ## 运行自动化测试
 
 ```bash

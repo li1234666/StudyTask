@@ -5,9 +5,9 @@
 | 项目 | 内容 |
 | --- | --- |
 | 代码仓库地址 | <https://github.com/li1234666/StudyTask> |
-| 网站 Web 地址 | `http://127.0.0.1:5000`（本机运行，按下一节启动） |
+| 网站 Web 地址 | <http://8.163.15.55/>（已部署在阿里云服务器，公网可直接访问） |
 
-> 若课程要求公网可访问的地址，需按第四节部署到云服务器或托管平台，并把地址替换为公网地址。
+> 也可以在本地运行（见第二节），本地地址为 `http://127.0.0.1:5000`。公网部署方式见第四节。
 
 ## 一、仓库里有什么
 
@@ -43,21 +43,33 @@ python app.py
 - [ ] 仓库首页能看到源码、`docs/`、`README.md`、`AI_DEV_LOG.md`
 - [ ] 标签页能看到 `baseline-v1`
 - [ ] 仓库地址在浏览器无痕窗口能匿名打开
-- [ ] 网站地址在本机能打开（部署到公网时换成公网地址并实测）
+- [ ] 网站地址 <http://8.163.15.55/> 能打开（实测返回 200，任务列表正常）
 
-## 四、部署到公网（仅在需要公网地址时）
+## 四、公网部署方式（已完成）
 
-以云服务器（Ubuntu）为例：
+线上环境：阿里云轻量应用服务器，Ubuntu 24.04 / 2 vCPU 2 GiB，公网 IP `8.163.15.55`，站点地址 <http://8.163.15.55/>。
+
+服务由 systemd 托管，开机自启、异常自动重启：
+
+```bash
+# 状态与日志
+systemctl status studytask
+journalctl -u studytask -n 50 --no-pager
+# 重启
+systemctl restart studytask
+```
+
+部署命令（服务器上执行）：
 
 ```bash
 git clone https://github.com/li1234666/StudyTask.git
 cd StudyTask
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt gunicorn
-gunicorn -w 2 -b 0.0.0.0:5000 app:app
+gunicorn -w 2 -b 0.0.0.0:80 app:app
 ```
 
-放行云服务器安全组的 5000 端口后，地址写成 `http://<服务器公网IP>:5000`；长期运行建议配 systemd 与 Nginx。
+仓库根目录的 `deploy.sh` 已封装完整流程（装依赖 → 拉代码 → 建虚拟环境 → 注册 systemd 服务 → 自检）。
 
 ## 五、更新仓库
 

@@ -5,7 +5,7 @@ set -e
 
 REPO="https://github.com/li1234666/StudyTask.git"
 DIR="$HOME/StudyTask"
-PORT=5000
+PORT=80
 
 echo "==> 1/6 安装依赖"
 if command -v apt-get >/dev/null 2>&1; then

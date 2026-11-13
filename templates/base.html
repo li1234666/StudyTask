@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}StudyTask 学习任务管理{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="{{ url_for('index') }}">StudyTask <span>个人学习任务管理</span></a>
+      <nav>
+        <a href="{{ url_for('index') }}">任务列表</a>
+        <a href="{{ url_for('task_new') }}">新建任务</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer wrap">
+    StudyTask · 《软件工程》实验一 · 单用户本地应用（Flask + SQLite）
+  </footer>
+</body>
+</html>

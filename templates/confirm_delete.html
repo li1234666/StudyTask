@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}确认删除 · StudyTask{% endblock %}
+{% block content %}
+<h1>确认删除任务</h1>
+
+<div class="card confirm">
+  <p class="warn">删除后该任务将从数据库中移除且无法恢复，请确认是否删除以下任务：</p>
+  <dl>
+    <dt>任务名称</dt><dd>{{ task.name }}</dd>
+    <dt>所属课程</dt><dd>{{ task.course }}</dd>
+    <dt>截止日期</dt><dd>{{ task.due_date }}</dd>
+    <dt>优先级</dt><dd>{{ task.priority }}</dd>
+    <dt>状态</dt><dd>{{ task.status }}</dd>
+  </dl>
+  <div class="actions">
+    <form method="post" action="{{ url_for('task_delete', task_id=task.id) }}" class="inline">
+      <button type="submit" class="btn btn-danger">确认删除</button>
+    </form>
+    <a class="btn btn-plain" href="{{ url_for('task_detail', task_id=task.id) }}">取消，返回详情</a>
+    <a class="btn btn-plain" href="{{ url_for('index') }}">取消，返回列表</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ task.name }} · 任务详情{% endblock %}
+{% block content %}
+<h1>{{ task.name }}</h1>
+
+<div class="card detail">
+  <dl>
+    <dt>所属课程</dt><dd>{{ task.course }}</dd>
+    <dt>截止日期</dt>
+    <dd>
+      {{ task.due_date }}
+      {% if flag == 'overdue' %}<span class="flag flag-overdue">已逾期</span>
+      {% elif flag == 'soon' %}<span class="flag flag-soon">即将到期</span>{% endif %}
+    </dd>
+    <dt>优先级</dt><dd><span class="prio prio-{{ task.priority }}">{{ task.priority }}</span></dd>
+    <dt>状态</dt><dd><span class="badge badge-{{ task.status }}">{{ task.status }}</span></dd>
+    <dt>任务描述</dt>
+    <dd class="desc">{{ task.description if task.description else '（未填写）' }}</dd>
+    <dt>创建时间</dt><dd>{{ task.created_at }}</dd>
+    <dt>更新时间</dt><dd>{{ task.updated_at }}</dd>
+  </dl>
+</div>
+
+<div class="actions">
+  {% for s in statuses %}
+    {% if s != task.status %}
+    <form method="post" action="{{ url_for('task_status', task_id=task.id) }}" class="inline">
+      <button class="btn" name="status" value="{{ s }}">标记为{{ s }}</button>
+    </form>
+    {% endif %}
+  {% endfor %}
+  <a class="btn btn-primary" href="{{ url_for('task_edit', task_id=task.id) }}">编辑任务</a>
+  <a class="btn btn-danger" href="{{ url_for('task_delete', task_id=task.id) }}">删除任务</a>
+  <a class="btn btn-plain" href="{{ url_for('index') }}">返回列表</a>
+</div>
+{% endblock %}

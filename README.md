@@ -47,21 +47,15 @@ python -m pytest -v
 
 测试使用临时数据库，不会影响 `instance/studytask.db` 中的真实数据。18 条用例全部通过，覆盖指导书 2.5 节 T1—T10 及边界情况（非法日期、超长字段、非法状态、404 页面等）。
 
-## 版本管理（Git）
+## 仓库与版本管理
 
-仓库已完成 `git init`、首次提交与打标签，`.gitignore` 排除 `.venv/`、`instance/`、`__pycache__/`、`.pytest_cache/`。
+远程仓库：<https://github.com/li1234666/StudyTask>（公开仓库，分支 `main`，验收版本标签 `baseline-v1`）。
 
-- 分支：`main`　标签：`baseline-v1`　远程仓库：<https://github.com/li1234666/StudyTask>
+指导书要求提交的材料都在仓库里：源码（`app.py`/`db.py`/`services.py`、`templates/`、`static/`）、`tests/`、`README.md`、`SUBMIT.md`、`AI_DEV_LOG.md`，以及 `docs/` 下的实验报告、需求验收表、答辩 PPT 与运行截图。
 
-推送到 GitHub（默认仓库名为 `StudyTask`，先建空仓库、不要勾选 README）：
+`.gitignore` 已排除 `.venv/`、`instance/`、`__pycache__/`、`.pytest_cache/`、WPS 临时锁文件 `~$*` 等，仓库中不含数据库文件与凭据。
 
-```bash
-git remote add origin https://github.com/<你的账号>/StudyTask.git
-git push -u origin main
-git push origin baseline-v1
-```
-
-远程仓库建立后，把 `https://github.com/<你的账号>/StudyTask` 作为课程提交的仓库地址。推送时的账号密码由 Git 客户端弹窗输入，本仓库中不含任何凭据。
+更新代码时先克隆仓库，改完后 `git add -A`、`git commit -m "说明"`、`git push` 即可。
 
 ## 目录结构
 
